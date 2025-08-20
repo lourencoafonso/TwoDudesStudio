@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two Dudes Studio - About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; overflow-x: hidden; font-family: 'Cinzel', serif; background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000); color: #e0e0e0; }
+
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; background: rgba(20, 20, 20, 0.9);
+      padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem;
+      z-index: 4; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05); align-items: center;
+    }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #f0e6d2; letter-spacing: 4px; text-decoration: none; margin-right: auto; transition: color 0.3s ease; }
+    .logo:hover { color: #ffffff; }
+    nav a { color: #f5f5f5; text-decoration: none; font-size: 1.2rem; position: relative; transition: color 0.3s ease; }
+    nav a:hover { color: #ffffff; }
+    .nav-glow-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 75%);
+      background-size: 200% 100%; background-repeat: repeat-x; animation: navShine 10s linear infinite; will-change: background-position; }
+    @keyframes navShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    section { min-height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; margin-bottom: 0.5rem; }
+    h1 { font-size: 3rem; color: #f0e6d2; margin-bottom: 1rem; }
+    p { max-width: 800px; font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem; color: #e0e0e0; }
+
+    .team-section { display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; padding: 2rem; gap: 2rem; margin-bottom: 2rem; }
+    .team-section.reverse { flex-direction: row-reverse; }
+    .team-image { width: 250px; height: 250px; background-color: #1a1a1a; border: 2px solid #f0e6d2; flex-shrink: 0; }
+    .team-info { max-width: 600px; }
+    .team-section:not(.reverse) { flex-direction: row; }
+    .team-section:not(.reverse) .team-info { text-align: left; }
+    .team-section.reverse .team-info { text-align: right; }
+    .team-info h2 { font-size: 2rem; margin-bottom: 0.5rem; color: #f0e6d2; }
+    .team-info p { font-size: 1.1rem; line-height: 1.5; margin-bottom: 1rem; color: #e0e0e0; }
+    .team-links a { color: #f0e6d2; margin-right: 1rem; text-decoration: none; transition: color 0.3s ease; }
+    .team-links a:hover { color: #ffffff; }
+
+	#hero { margin-top: 4rem; }
+
+    .mist { position: absolute; top: 0; left: 0; width: 200%; height: 100%; background: url('https://www.transparenttextures.com/patterns/fog.png'); background-size: cover; opacity: 0.3; animation: drift 60s linear infinite; z-index: 1; }
+    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">TDS</a>
+    <a href="games.html">Games</a>
+    <a href="announcements.html">Announcements</a>
+    <a href="about.html">About Us</a>
+    <div class="nav-glow-line"></div>
+  </nav>
+
+  <section id="hero">
+    <h1>About Us</h1>
+    <p>We are Two Dudes Studio, a new game development team and both UF students. As avid gamers ourselves, we strive to create experiences that are meaningful, innovative, and engaging for players seeking something fresh and exciting in the gaming world.</p>
+  </section>
+
+  <section id="vision">
+    <h1>Our Vision</h1>
+    <p>Our mission is to craft games that blend immersive storytelling, unique gameplay mechanics, and swift development cycles. We aim to deliver content that is bold, memorable, and tailored for gamers who value creativity, challenge, and fun.</p>
+  </section>
+
+  <section class="team-section">
+    <div class="team-image" id="daniel-image"></div>
+    <div class="team-info">
+      <h2>Daniel Elie</h2>
+      <p>Daniel is the visual designer and creative lead, focusing on the artistic aspects of our games to create engaging and immersive worlds. He is a UF student.</p>
+      <div class="team-links">
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="https://www.twitch.tv/jeronim00000" target="_blank">Twitch</a>
+        <a href="https://discord.gg/3tK3hfQ3">Discord</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section reverse">
+    <div class="team-image" id="afonso-image"></div>
+    <div class="team-info">
+      <h2>Afonso Nicolau Lourenco</h2>
+      <p>Afonso is the programmer and computer engineer, driving the technical development and implementing the core mechanics that bring our games to life. He is a UF student.</p>
+      <div class="team-links">
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+        <a href="#">Twitch</a>
+        <a href="#">Discord</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="mist"></div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Two Dudes Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { width: 100%; overflow-x: hidden; }
+
+    body {
+      font-family: 'Cinzel', serif;
+      background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000);
+      color: #e0e0e0;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    #welcome { height: 100vh; }
+    #carousel-section { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; min-height: 90vh; }
+
+    h1 { font-size: 3rem; font-weight: 400; letter-spacing: 3px; color: #f0e6d2; transition: opacity 0.5s ease; }
+
+    /* Navigation Bar */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(20, 20, 20, 0.9);
+      padding: 1rem 2rem;
+      display: flex; justify-content: center; gap: 3rem;
+      z-index: 4; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+      align-items: center;
+    }
+
+    .logo { font-size: 1.8rem; font-weight: 700; color: #f0e6d2; letter-spacing: 4px; text-decoration: none; margin-right: auto; transition: color 0.3s ease; }
+    .logo:hover { color: #ffffff; }
+    nav a { color: #f5f5f5; text-decoration: none; font-size: 1.2rem; position: relative; transition: color 0.3s ease; }
+    nav a:hover { color: #ffffff; }
+
+    .nav-glow-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 75%);
+      background-size: 200% 100%; background-repeat: repeat-x; animation: navShine 10s linear infinite; will-change: background-position; }
+
+    @keyframes navShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .mist { position: absolute; top: 0; left: 0; width: 200%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/fog.png'); background-size: cover; opacity: 0.3;
+      animation: drift 60s linear infinite; z-index: 1; }
+
+    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .glow-line { position: absolute; width: 200%; height: 1px; background: linear-gradient(90deg, transparent, #ffffff15, transparent);
+      top: 50%; left: -50%; animation: moveLine 12s linear infinite; z-index: 2; }
+
+    @keyframes moveLine { from { transform: translateX(0); } to { transform: translateX(100%); } }
+
+    .carousel { position: relative; width: 100%; max-width: 900px; overflow: hidden; margin: auto; }
+    .carousel-track { display: flex; transition: transform 0.5s ease; }
+    .carousel img { width: 100%; flex-shrink: 0; border: 2px solid #f0e6d2; border-radius: 4px; }
+
+    .carousel-button {
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      border: 2px solid #f0e6d2;
+      background: transparent;
+      color: #f0e6d2;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      position: relative;
+      z-index: 5;
+    }
+    .carousel-button:hover { background: #f0e6d2; color: #0a0a0a; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">TDS</a>
+    <a href="games.html">Games</a>
+	<a href="announcements.html">Announcements</a>
+    <a href="about.html">About Us</a>
+    <div class="nav-glow-line"></div>
+  </nav>
+
+  <section id="welcome">
+    <h1 id="home-title">Welcome to Two Dudes Studio</h1>
+  </section>
+
+  <section id="carousel-section">
+    <div class="carousel">
+      <div class="carousel-track" id="carousel-track">
+        <img src="https://via.placeholder.com/900x500?text=Game+1" alt="Game 1">
+        <img src="https://via.placeholder.com/900x500?text=Game+2" alt="Game 2">
+        <img src="https://via.placeholder.com/900x500?text=Game+3" alt="Game 3">
+      </div>
+    </div>
+    <a href="games.html" class="carousel-button">Explore Our Games</a>
+  </section>
+
+  <div class="glow-line"></div>
+  <div class="mist"></div>
+
+  <script>
+    const homeTitle = document.getElementById('home-title');
+    const welcomeSection = document.getElementById('welcome');
+    const track = document.getElementById('carousel-track');
+    const slides = Array.from(track.children);
+    let currentIndex = 0;
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const welcomeHeight = welcomeSection.offsetHeight;
+      let progress = scrollY / (welcomeHeight / 1.1);
+      progress = Math.max(0, Math.min(1, progress));
+      homeTitle.style.opacity = 1 - progress;
+    });
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }, 4000);
+  </script>
+</body>
+</html>

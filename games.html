@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Two Dudes Studio - Games</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { width: 100%; overflow-x: hidden; font-family: 'Cinzel', serif; background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000); color: #e0e0e0; }
+
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; background: rgba(20, 20, 20, 0.9);
+      padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem;
+      z-index: 4; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05); align-items: center;
+    }
+
+    .logo { font-size: 1.8rem; font-weight: 700; color: #f0e6d2; letter-spacing: 4px; text-decoration: none; margin-right: auto; transition: color 0.3s ease; }
+    .logo:hover { color: #ffffff; }
+    nav a { color: #f5f5f5; text-decoration: none; font-size: 1.2rem; position: relative; transition: color 0.3s ease; }
+    nav a:hover { color: #ffffff; }
+
+    .nav-glow-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 75%);
+      background-size: 200% 100%; background-repeat: repeat-x; animation: navShine 10s linear infinite; will-change: background-position; }
+
+    @keyframes navShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    h1 { margin-top: 5rem; font-size: 3rem; text-align: center; color: #f0e6d2; }
+    .content { margin-top: 2rem; text-align: center; }
+
+    .game-block { display: flex; justify-content: center; align-items: center; gap: 3rem; margin-top: 3rem; }
+    .game-images { width: 400px; height: 250px; overflow: hidden; border: 2px solid #f0e6d2; border-radius: 6px; position: relative; display: flex; align-items: center; justify-content: center; }
+    .game-images img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .game-info { max-width: 400px; text-align: left; }
+    .game-info h2 { font-size: 2rem; margin-bottom: 0.5rem; color: #f0e6d2; }
+    .game-info p { font-size: 1rem; margin-bottom: 1rem; color: #e0e0e0; line-height: 1.5; }
+    .steam-button { padding: 0.75rem 1.5rem; border: 2px solid #f0e6d2; background: transparent; color: #f0e6d2; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
+    .steam-button:hover { background: #f0e6d2; color: #0a0a0a; }
+
+    .wip-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); pointer-events: none; }
+    .wip-overlay span { font-size: 3rem; font-weight: 700; color: rgba(255,0,0,0.5); }
+
+    .reverse { flex-direction: row-reverse; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">TDS</a>
+    <a href="games.html">Games</a>
+    <a href="announcements.html">Announcements</a>
+    <a href="about.html">About Us</a>
+    <div class="nav-glow-line"></div>
+  </nav>
+
+  <h1>Our Games</h1>
+  <div class="content">
+    <p>Explore the exciting projects we've been crafting to push gaming to new heights.</p>
+  </div>
+
+  <!-- Bean Game Block -->
+  <div class="game-block">
+    <div class="game-images" id="game-images">
+      <img src="https://via.placeholder.com/400x250?text=Bean+1" alt="Bean Game 1">
+      <img src="https://via.placeholder.com/400x250?text=Bean+2" alt="Bean Game 2" style="display:none;">
+      <img src="https://via.placeholder.com/400x250?text=Bean+3" alt="Bean Game 3" style="display:none;">
+    </div>
+    <div class="game-info">
+      <h2>Bean</h2>
+      <p>Bean is a chaotic and thrilling multiplayer platform shooter where fast reflexes, clever strategies, and unpredictable moments collide to deliver an unforgettable gaming experience.</p>
+      <!-- Replace '#' with your actual Steam page link -->
+      <a href="#" class="steam-button">Visit Steam Page</a>
+    </div>
+  </div>
+
+  <!-- Insecticide Game Block (Reversed) -->
+  <div class="game-block reverse">
+    <div class="game-images">
+      <img src="https://via.placeholder.com/400x250?text=Insecticide" alt="Insecticide">
+      <div class="wip-overlay"><span>Work in Progress</span></div>
+    </div>
+    <div class="game-info">
+      <h2>Insecticide</h2>
+      <p>Currently a work in progress. Get ready for an innovative and fast-paced experience as we finalize this game for release.</p>
+      <!-- Replace '#' with your actual Steam page link -->
+      <a href="#" class="steam-button">Visit Steam Page</a>
+    </div>
+  </div>
+
+  <script>
+    // Bean image carousel
+    const gameImages = document.querySelectorAll('#game-images img');
+    let currentGameIndex = 0;
+
+    setInterval(() => {
+      gameImages[currentGameIndex].style.display = 'none';
+      currentGameIndex = (currentGameIndex + 1) % gameImages.length;
+      gameImages[currentGameIndex].style.display = 'block';
+    }, 3000);
+  </script>
+</body>
+</html>
+
