@@ -29,7 +29,25 @@
 
     .team-section { display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; padding: 2rem; gap: 2rem; margin-bottom: 2rem; }
     .team-section.reverse { flex-direction: row-reverse; }
-    .team-image { width: 250px; height: 250px; background-color: #1a1a1a; border: 2px solid #f0e6d2; flex-shrink: 0; }
+    .team-image {
+	  width: 250px;
+	  height: 250px;
+	  background-color: #1a1a1a;
+	  border: 2px solid #f0e6d2;
+	  flex-shrink: 0;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  overflow: hidden; /* ensures image doesn't spill outside */
+	}
+
+	.team-image img {
+	  width: 100%;
+	  height: 100%;
+	  object-fit: cover; /* crops/fits neatly */
+	  border-radius: 2px; /* optional, keeps slight rounding */
+	}
+
     .team-info { max-width: 600px; }
     .team-section:not(.reverse) { flex-direction: row; }
     .team-section:not(.reverse) .team-info { text-align: left; }
@@ -68,28 +86,32 @@
     <div class="team-image" id="daniel-image"></div>
     <div class="team-info">
       <h2>Daniel Elie</h2>
-      <p>Daniel is the visual designer and creative lead, focusing on the artistic aspects of our games to create engaging and immersive worlds. He is a UF student.</p>
+      <p>Daniel is a student at the University of Florida with a strong focus on visual design and creative direction. He handles the studio’s artistic vision, shaping the look and feel of each project. Daniel brings an eye for detail and presentation, making sure every game feels polished and visually engaging.</p>
       <div class="team-links">
         <a href="https://www.instagram.com/jeronimooo05/">Instagram</a>
         <a href="https://www.youtube.com/@JERONIMOOOOOOOOOO">YouTube</a>
         <a href="https://www.twitch.tv/jeronim00000" target="_blank">Twitch</a>
         <a href="https://discord.gg/3tK3hfQ3">Discord</a>
-        <a href="picalimas05@gmail.com">Email</a>
+        <a href="mailto:picalimas05@gmail.com">Email</a>
       </div>
     </div>
   </section>
 
   <section class="team-section reverse">
-    <div class="team-image" id="afonso-image"></div>
+    <div class="team-image" id="afonso-image">
+		<img src="https://media.licdn.com/dms/image/v2/D4E03AQHqUzyeh1T_Eg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1726095644082?e=2147483647&v=beta&t=pLRmMv-4hwN5KStcSSKkvMt130c0pMi0iUYF4HJnl3o" alt="Afonso Image">
+	</div>
+
     <div class="team-info">
       <h2>Afonso Lourenco</h2>
-      <p>Afonso is the programmer and computer engineer, driving the technical development and implementing the core mechanics that bring our games to life. He is a UF student.</p>
+      <p>Afonso is a Computer Engineering student at the University of Florida specializing in programming and systems design. He develops the technical foundation of our projects, ensuring smooth performance and efficient code. His focus is on gameplay mechanics and core functionality, bringing the creative vision to life.</p>
       <div class="team-links">
         <a href="#">Instagram</a>
-        <a href="#">YouTube</a>
+<!--        <a href="#">YouTube</a>
         <a href="#">Twitch</a>
         <a href="#">Discord</a>
-        <a href="#">Email</a>
+		-->
+        <a href="mailto:a.lour.pt@gmail.com">Email</a>
       </div>
     </div>
   </section>
@@ -97,5 +119,3 @@
   <div class="mist"></div>
 </body>
 </html>
-
-

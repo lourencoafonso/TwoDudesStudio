@@ -1,48 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Two Dudes Studio - Games</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html, body { width: 100%; overflow-x: hidden; font-family: 'Cinzel', serif; background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000); color: #e0e0e0; }
-
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%; background: rgba(20, 20, 20, 0.9);
-      padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem;
-      z-index: 4; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05); align-items: center;
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+      font-family: 'Cinzel', serif;
+      background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000);
+      color: #e0e0e0;
     }
 
-    .logo { font-size: 1.8rem; font-weight: 700; color: #f0e6d2; letter-spacing: 4px; text-decoration: none; margin-right: auto; transition: color 0.3s ease; }
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(20, 20, 20, 0.9);
+      padding: 1rem 2rem;
+      display: flex; justify-content: center; gap: 3rem;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0e6d2;
+      letter-spacing: 4px;
+      text-decoration: none;
+      margin-right: auto;
+      transition: color 0.3s ease;
+    }
     .logo:hover { color: #ffffff; }
-    nav a { color: #f5f5f5; text-decoration: none; font-size: 1.2rem; position: relative; transition: color 0.3s ease; }
+    nav a {
+      color: #f5f5f5;
+      text-decoration: none;
+      font-size: 1.2rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
     nav a:hover { color: #ffffff; }
-
-    .nav-glow-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+    .nav-glow-line {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
       background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 75%);
-      background-size: 200% 100%; background-repeat: repeat-x; animation: navShine 10s linear infinite; will-change: background-position; }
+      background-size: 200% 100%;
+      animation: navShine 10s linear infinite;
+    }
+    @keyframes navShine {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
 
-    @keyframes navShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    header {
+      margin-top: 6rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #f0e6d2;
+      margin-bottom: 1rem;
+    }
+    header p {
+      font-size: 1.3rem;
+      color: #ccc;
+    }
 
-    h1 { margin-top: 5rem; font-size: 3rem; text-align: center; color: #f0e6d2; }
-    .content { margin-top: 2rem; text-align: center; }
+    .game-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 4rem 2rem;
+      flex-wrap: wrap;
+    }
+    .game-section:nth-child(even) { flex-direction: row-reverse; }
 
-    .game-block { display: flex; justify-content: center; align-items: center; gap: 3rem; margin-top: 3rem; }
-    .game-images { width: 400px; height: 250px; overflow: hidden; border: 2px solid #f0e6d2; border-radius: 6px; position: relative; display: flex; align-items: center; justify-content: center; }
-    .game-images img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .game-info { max-width: 400px; text-align: left; }
-    .game-info h2 { font-size: 2rem; margin-bottom: 0.5rem; color: #f0e6d2; }
-    .game-info p { font-size: 1rem; margin-bottom: 1rem; color: #e0e0e0; line-height: 1.5; }
-    .steam-button { padding: 0.75rem 1.5rem; border: 2px solid #f0e6d2; background: transparent; color: #f0e6d2; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
-    .steam-button:hover { background: #f0e6d2; color: #0a0a0a; }
+    .image-carousel {
+      position: relative;
+      width: 600px;
+      height: 338px;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .image-carousel img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .image-carousel img.active { opacity: 1; }
 
-    .wip-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); pointer-events: none; }
-    .wip-overlay span { font-size: 3rem; font-weight: 700; color: rgba(255,0,0,0.5); }
+    .work-in-progress {
+      position: relative;
+      width: 600px;
+      height: 338px;
+      background: #222;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    }
+    .work-in-progress img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      opacity: 0.6;
+    }
+    .work-in-progress::after {
+      content: "WORK IN PROGRESS";
+      position: absolute;
+      color: rgba(255,255,255,0.8);
+      font-size: 2rem;
+      font-weight: bold;
+      transform: rotate(-30deg);
+      background: rgba(0,0,0,0.6);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
 
-    .reverse { flex-direction: row-reverse; }
+    .game-info {
+      max-width: 500px;
+      text-align: left;
+    }
+    .game-info h2 {
+      font-size: 2rem;
+      color: #f0e6d2;
+      margin-bottom: 1rem;
+    }
+    .game-info p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .steam-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 2px solid #f0e6d2;
+      color: #f0e6d2;
+      font-size: 1rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .steam-btn:hover {
+      background: #f0e6d2;
+      color: #000;
+    }
   </style>
 </head>
 <body>
@@ -54,52 +167,56 @@
     <div class="nav-glow-line"></div>
   </nav>
 
-  <h1>Our Games</h1>
-  <div class="content">
-    <p>Explore the exciting projects we've been crafting to push gaming to new heights.</p>
-  </div>
+  <header>
+    <h1>Our Games</h1>
+    <p>Discover the worlds we’re building — chaotic, creative, and crafted for gamers like us.</p>
+  </header>
 
-  <!-- Bean Game Block -->
-  <div class="game-block">
-    <div class="game-images" id="game-images">
-      <img src="https://via.placeholder.com/400x250?text=Bean+1" alt="Bean Game 1">
-      <img src="https://via.placeholder.com/400x250?text=Bean+2" alt="Bean Game 2" style="display:none;">
-      <img src="https://via.placeholder.com/400x250?text=Bean+3" alt="Bean Game 3" style="display:none;">
+  <!-- Bean Section -->
+  <section class="game-section">
+    <div class="image-carousel">
+	  <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/7da7c580314d3531c3993b67f57f68e9956404d1/header.jpg?t=1758148773" alt="Bean">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/54f05e79a2a8b961306f7aef01f3aa4fbdbda84f/ss_54f05e79a2a8b961306f7aef01f3aa4fbdbda84f.600x338.jpg?t=1758148773" alt="Bean Screenshot 1">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/163d13dd64f5d3a5327a24015594057fb75ba379/ss_163d13dd64f5d3a5327a24015594057fb75ba379.600x338.jpg?t=1758148773" alt="Bean Screenshot 2">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/831dc9dd61b7ec3df924e5c0d1c2421768177fb8/ss_831dc9dd61b7ec3df924e5c0d1c2421768177fb8.600x338.jpg?t=1758148773" alt="Bean Screenshot 3">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/b0a735c0a4556e9c02ea2e60e6b06864cc61283f/ss_b0a735c0a4556e9c02ea2e60e6b06864cc61283f.600x338.jpg?t=1758148773" alt="Bean Screenshot 4">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/89fa1d72cf5aaf41c016e5616949e69724d1d5f8/ss_89fa1d72cf5aaf41c016e5616949e69724d1d5f8.600x338.jpg?t=1758148773" alt="Bean Screenshot 5">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/97f3b10bef40431281effaccc71ec02691ab6736/ss_97f3b10bef40431281effaccc71ec02691ab6736.600x338.jpg?t=1758148773" alt="Bean Screenshot 6">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/cbc38908119728cf6e3755b2521e5509335b21ca/ss_cbc38908119728cf6e3755b2521e5509335b21ca.600x338.jpg?t=1758148773" alt="Bean Screenshot 7">
     </div>
+
     <div class="game-info">
-      <h2>Bean</h2>
-      <p>Bean is a chaotic and thrilling multiplayer platform shooter where fast reflexes, clever strategies, and unpredictable moments collide to deliver an unforgettable gaming experience.</p>
-      <!-- Replace '#' with your actual Steam page link -->
-      <a href="#" class="steam-button">Visit Steam Page</a>
+      <h2>Bean.</h2>
+      <p>A chaotic 4-player platform shooter where every coin and star matters. Collect, compete, and outwit your friends in fast-paced arenas where every decision can cost you everything.</p>
+      <a class="steam-btn" href="https://store.steampowered.com/app/3981740/BEAN/"><!-- Future Steam link here -->View on Steam</a>
     </div>
-  </div>
-<!--
-  Insecticide Game Block (Reversed)
-  <div class="game-block reverse">
-    <div class="game-images">
-      <img src="https://via.placeholder.com/400x250?text=Insecticide" alt="Insecticide">
-      <div class="wip-overlay"><span>Work in Progress</span></div>
+  </section>
+
+  <!--
+  <section class="game-section">
+    <div class="work-in-progress">
+      <img src="https://via.placeholder.com/600x338.png?text=Insecticide" alt="Insecticide Placeholder">
     </div>
+
     <div class="game-info">
       <h2>Insecticide</h2>
-      <p>Currently a work in progress. Get ready for an innovative and fast-paced experience as we finalize this game for release.</p>
-      Replace '#' with your actual Steam page link
-      <a href="#" class="steam-button">Visit Steam Page</a>
+      <p>Currently in development. A dark, atmospheric experience that’s still taking shape — stay tuned for more updates.</p>
     </div>
-  </div>
--->
+  </section>
+  -->
 
   <script>
-    // Bean image carousel
-    const gameImages = document.querySelectorAll('#game-images img');
-    let currentGameIndex = 0;
-
-    setInterval(() => {
-      gameImages[currentGameIndex].style.display = 'none';
-      currentGameIndex = (currentGameIndex + 1) % gameImages.length;
-      gameImages[currentGameIndex].style.display = 'block';
-    }, 3000);
+    const carousels = document.querySelectorAll(".image-carousel");
+    carousels.forEach(carousel => {
+      const images = carousel.querySelectorAll("img");
+      let index = 0;
+      images[index].classList.add("active");
+      setInterval(() => {
+        images[index].classList.remove("active");
+        index = (index + 1) % images.length;
+        images[index].classList.add("active");
+      }, 3000); // 3s per image
+    });
   </script>
 </body>
 </html>
-
