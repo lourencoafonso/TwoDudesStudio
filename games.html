@@ -15,46 +15,92 @@
       color: #e0e0e0;
     }
 
+    /* Navigation Bar */
     nav {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
+      position: fixed; top: 0; left: 0; width: 100%;
       background: rgba(20, 20, 20, 0.9);
-      padding: 1rem 2rem;
-      display: flex; justify-content: center; gap: 3rem;
-      z-index: 10;
+      padding: 1rem 1.5rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      z-index: 6;
       box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
-      align-items: center;
     }
+
     .logo {
-      font-size: 1.8rem;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
       font-weight: 700;
       color: #f0e6d2;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       text-decoration: none;
-      margin-right: auto;
       transition: color 0.3s ease;
     }
     .logo:hover { color: #ffffff; }
-    nav a {
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links li a {
       color: #f5f5f5;
       text-decoration: none;
-      font-size: 1.2rem;
-      position: relative;
+      font-size: clamp(0.9rem, 3vw, 1.2rem);
       transition: color 0.3s ease;
+      position: relative;
     }
-    nav a:hover { color: #ffffff; }
+    .nav-links li a:hover { color: #ffffff; }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8em;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #333;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .nav-links.active { display: flex; }
+    }
+
     .nav-glow-line {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 2px;
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
       background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 75%);
-      background-size: 200% 100%;
+      background-size: 200% 100%; background-repeat: repeat-x;
       animation: navShine 10s linear infinite;
+      will-change: background-position;
     }
-    @keyframes navShine {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+
+    @keyframes navShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .mist {
+      position: absolute; top: 0; left: 0; width: 200%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/fog.png');
+      background-size: cover; opacity: 0.3;
+      animation: drift 60s linear infinite; z-index: 1;
+    }
+
+    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .glow-line {
+      position: absolute; width: 200%; height: 1px;
+      background: linear-gradient(90deg, transparent, #ffffff15, transparent);
+      top: 50%; left: -50%;
+      animation: moveLine 12s linear infinite;
+      z-index: 2;
     }
 
     header {
@@ -82,23 +128,28 @@
     }
     .game-section:nth-child(even) { flex-direction: row-reverse; }
 
-    .image-carousel {
-      position: relative;
-      width: 600px;
-      height: 338px;
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(255,255,255,0.1);
-    }
-    .image-carousel img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-    .image-carousel img.active { opacity: 1; }
+    .image-carousel, .work-in-progress {
+	  position: relative;
+	  width: 100%;
+	  max-width: 600px;
+	  aspect-ratio: 16 / 9; /* keeps the correct shape */
+	  overflow: hidden;
+	  border-radius: 8px;
+	  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+	}
+
+	.image-carousel img,
+	.work-in-progress img {
+	  position: absolute;
+	  top: 0; left: 0;
+	  width: 100%;
+	  height: 100%;
+	  object-fit: cover;
+	  border-radius: 8px;
+	}
+    .image-carousel img.active{opacity:1; z-index:5}
+    /* if you want layering safety, set all images low z */
+    .image-carousel img{z-index:1}
 
     .work-in-progress {
       position: relative;
@@ -161,11 +212,15 @@
 <body>
   <nav>
     <a href="index.html" class="logo">TDS</a>
-    <a href="games.html">Games</a>
-    <a href="announcements.html">Announcements</a>
-    <a href="about.html">About Us</a>
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="games.html">Games</a></li>
+      <li><a href="announcements.html">Announcements</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
     <div class="nav-glow-line"></div>
   </nav>
+
 
   <header>
     <h1>Our Games</h1>
@@ -173,9 +228,9 @@
   </header>
 
   <!-- Bean Section -->
-  <section class="game-section">
-    <div class="image-carousel">
-	  <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/7da7c580314d3531c3993b67f57f68e9956404d1/header.jpg?t=1758148773" alt="Bean">
+   <section id="bean" class="game-section" aria-labelledby="bean-title">
+    <div class="image-carousel" aria-hidden="false" aria-label="Bean screenshots">
+      <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/7da7c580314d3531c3993b67f57f68e9956404d1/header.jpg?t=1758148773" alt="Bean">
       <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/54f05e79a2a8b961306f7aef01f3aa4fbdbda84f/ss_54f05e79a2a8b961306f7aef01f3aa4fbdbda84f.600x338.jpg?t=1758148773" alt="Bean Screenshot 1">
       <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/163d13dd64f5d3a5327a24015594057fb75ba379/ss_163d13dd64f5d3a5327a24015594057fb75ba379.600x338.jpg?t=1758148773" alt="Bean Screenshot 2">
       <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3981740/831dc9dd61b7ec3df924e5c0d1c2421768177fb8/ss_831dc9dd61b7ec3df924e5c0d1c2421768177fb8.600x338.jpg?t=1758148773" alt="Bean Screenshot 3">
@@ -188,11 +243,11 @@
     <div class="game-info">
       <h2>Bean.</h2>
       <p>A chaotic 4-player platform shooter where every coin and star matters. Collect, compete, and outwit your friends in fast-paced arenas where every decision can cost you everything.</p>
-      <a class="steam-btn" href="https://store.steampowered.com/app/3981740/BEAN/"><!-- Future Steam link here -->View on Steam</a>
+      <a class="steam-btn" href="https://store.steampowered.com/app/3981740/BEAN/">View on Steam</a>
     </div>
   </section>
-
-  <!--
+  
+    <!--
   <section class="game-section">
     <div class="work-in-progress">
       <img src="https://via.placeholder.com/600x338.png?text=Insecticide" alt="Insecticide Placeholder">
@@ -205,18 +260,82 @@
   </section>
   -->
 
+ <div class="mist" aria-hidden="true"></div>
+
   <script>
-    const carousels = document.querySelectorAll(".image-carousel");
-    carousels.forEach(carousel => {
-      const images = carousel.querySelectorAll("img");
-      let index = 0;
-      images[index].classList.add("active");
-      setInterval(() => {
-        images[index].classList.remove("active");
-        index = (index + 1) % images.length;
-        images[index].classList.add("active");
-      }, 3000); // 3s per image
+document.addEventListener('DOMContentLoaded', () => {
+  // Hamburger toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
     });
-  </script>
+  }
+
+  // Image carousels
+  const carousels = document.querySelectorAll('.image-carousel');
+
+  carousels.forEach(carousel => {
+    const imgs = Array.from(carousel.querySelectorAll('img'));
+    if (!imgs.length) return;
+
+    let idx = 0;
+    const INTERVAL = 3000; // normal interval between slides
+    const FIRST_DELAY = Math.max(800, Math.floor(INTERVAL / 2)); // shorter first delay
+    let timerId = null;
+
+    const show = i =>
+      imgs.forEach((img, j) => img.classList.toggle('active', j === i));
+
+    // ensure one image is visible immediately
+    if (!carousel.querySelector('img.active')) show(0);
+
+    function clearTimer() {
+      if (timerId) {
+        clearTimeout(timerId);
+        timerId = null;
+      }
+    }
+
+    function schedule(delay = INTERVAL) {
+      clearTimer();
+      timerId = setTimeout(function tick() {
+        idx = (idx + 1) % imgs.length;
+        show(idx);
+        timerId = setTimeout(tick, INTERVAL);
+      }, delay);
+    }
+
+    // start cycling with a shorter first delay so the first slide doesn't feel stuck
+    schedule(FIRST_DELAY);
+
+    // pause/resume on hover & focus (also good for accessibility)
+    carousel.addEventListener('mouseenter', clearTimer);
+    carousel.addEventListener('mouseleave', () => {
+      if (!timerId) schedule(INTERVAL);
+    });
+    carousel.addEventListener('focusin', clearTimer);
+    carousel.addEventListener('focusout', () => {
+      if (!timerId) schedule(INTERVAL);
+    });
+
+    // pause when tab is hidden, resume when visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearTimer();
+      else if (!timerId) schedule(INTERVAL);
+    });
+
+    // If images load after script runs, make sure at least the first becomes visible
+    imgs.forEach(img => {
+      if (!img.complete) {
+        img.addEventListener('load', () => {
+          if (!carousel.querySelector('img.active')) show(0);
+        });
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>

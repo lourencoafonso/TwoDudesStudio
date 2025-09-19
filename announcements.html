@@ -7,27 +7,111 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; overflow-x: hidden; font-family: 'Cinzel', serif; background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000); color: #e0e0e0; }
-
-    nav {
-      position: fixed; top: 0; left: 0; width: 100%; background: rgba(20, 20, 20, 0.9);
-      padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem;
-      z-index: 4; box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05); align-items: center;
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+      font-family: 'Cinzel', serif;
+      background: radial-gradient(circle at top left, #0a0a0a, #111111, #000000);
+      color: #e0e0e0;
     }
-    .logo { font-size: 1.8rem; font-weight: 700; color: #f0e6d2; letter-spacing: 4px; text-decoration: none; margin-right: auto; transition: color 0.3s ease; }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(20, 20, 20, 0.9);
+      padding: 1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 4;
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-weight: 700;
+      color: #f0e6d2;
+      letter-spacing: 3px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
     .logo:hover { color: #ffffff; }
-    nav a { color: #f5f5f5; text-decoration: none; font-size: 1.2rem; position: relative; transition: color 0.3s ease; }
-    nav a:hover { color: #ffffff; }
-    .nav-glow-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links li a {
+      color: #f5f5f5;
+      text-decoration: none;
+      font-size: clamp(0.9rem, 3vw, 1.2rem);
+      transition: color 0.3s ease;
+    }
+    .nav-links li a:hover { color: #ffffff; }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8em;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Responsive nav */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #333;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        width: 200px;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .nav-links.active { display: flex; }
+    }
+
+    .nav-glow-line {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
       background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,0) 75%);
-      background-size: 200% 100%; background-repeat: repeat-x; animation: navShine 10s linear infinite; will-change: background-position; }
-    @keyframes navShine { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+      background-size: 200% 100%; background-repeat: repeat-x;
+      animation: navShine 10s linear infinite;
+    }
+    @keyframes navShine {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
 
-    section { min-height: 40vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; margin-bottom: 1rem; }
-    h1 { font-size: 3rem; color: #f0e6d2; margin-bottom: 1rem; }
-    p { max-width: 800px; font-size: 1.2rem; line-height: 1.6; margin-bottom: 1.5rem; color: #e0e0e0; }
+    /* PAGE CONTENT */
+    section {
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
 
-    /* Announcement blocks */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #f0e6d2;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      max-width: 800px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #e0e0e0;
+    }
+
+    /* ANNOUNCEMENTS */
     .announcement {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(240, 230, 210, 0.3);
@@ -59,7 +143,7 @@
       line-height: 1.6;
     }
 
-    /* Button */
+    /* BUTTON */
     .announcement a.button {
       display: inline-block;
       margin-top: 1rem;
@@ -77,18 +161,33 @@
       transform: translateY(-2px);
     }
 
-    #hero { margin-top: 4rem; }
+    #hero { margin-top: 6rem; } /* pushes below navbar */
 
-    .mist { position: absolute; top: 0; left: 0; width: 200%; height: 100%; background: url('https://www.transparenttextures.com/patterns/fog.png'); background-size: cover; opacity: 0.3; animation: drift 60s linear infinite; z-index: 1; }
-    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .mist {
+      position: absolute;
+      top: 0; left: 0;
+      width: 200%; height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/fog.png');
+      background-size: cover;
+      opacity: 0.3;
+      animation: drift 60s linear infinite;
+      z-index: 1;
+    }
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
   </style>
 </head>
 <body>
   <nav>
     <a href="index.html" class="logo">TDS</a>
-    <a href="games.html">Games</a>
-    <a href="announcements.html">Announcements</a>
-    <a href="about.html">About Us</a>
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="games.html">Games</a></li>
+      <li><a href="announcements.html">Announcements</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
     <div class="nav-glow-line"></div>
   </nav>
 
@@ -107,5 +206,14 @@
   </section>
 
   <div class="mist"></div>
+
+  <script>
+    // Hamburger toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
